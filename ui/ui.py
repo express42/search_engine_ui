@@ -35,13 +35,13 @@ def connect_db():
         db.admin.command('ismaster')
     except Exception as e:
         log.error('connect_db',
-                  service='crawler',
+                  service='web',
                   message="Failed connect to Database",
                   traceback=traceback.format_exc(e),
                   )
     else:
         log.info('connect_to_db',
-                  service='crawler',
+                  service='web',
                   message='Successfully connected to database',
                 )
         return db
