@@ -33,15 +33,15 @@ FLASK_APP=ui.py gunicorn ui:app -b 0.0.0.0
 pip install -r requirements.txt -r requirements-test.txt
 ```
 
-### Тестирование 
+### Тестирование
 Базовая команда для запуска unit-тестов
 ```
-python -m unittest discover -s tests/ 
+python -m unittest discover -s tests/
 ```
 
 Команды для генерации отчета о покрытии кода тестами
 ```
-coverage run -m unittest discover -s tests/ 
+coverage run -m unittest discover -s tests/
 coverage report --include ui/ui.py
 ```
 
@@ -52,5 +52,5 @@ coverage report --include ui/ui.py
 * `web_pages_served` - количество обработанных запросов
 * `web_page_gen_time` - время генерации веб-страниц, учитывая время обработки запроса
 
-## Логиование
+## Логирование
 Бот отправляет логи в `json`-формате в `stdout`
