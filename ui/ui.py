@@ -65,7 +65,8 @@ def get_page_by_id (page_id):
     return g.db.pages.find_one( {'_id': page_id} )
 
 def get_page_score (page_id):
-    return len(g.db.pages.find_one({ '_id': page_id })['ref_pages'])
+    page = get_page_by_id(page_id)
+    return len(page['ref_pages']) if page and 'ref_pages' in page else 0
 
 def intersect(a, b):
     return list(set(a) & set(b))
