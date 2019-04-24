@@ -1,0 +1,29 @@
+image: docker:latest
+
+stages:
+  - build
+  - unittest
+  - deploy
+
+build:
+  stage: build
+  services:
+    - docker:dind
+  script: 
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
+    - docker build -t "$CI_PROJECT_PATH:$CI_COMMIT_REF_SLUG" .
+    - docker push "$CI_PROJECT_PATH:$CI_COMMIT_REF_SLUG"
+
+test:
+  stage: unittest
+  services:
+    - docker:dind
+  script:
+    - docker run "$CI_PROJECT_PATH:$CI_COMMIT_REF_SLUG" python -m unittest discover -s tests/
+
+deploy:
+  stage: deploy
+  services:
+    - docker:dind
+  script:
+    - echo "stub"
