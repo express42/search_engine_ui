@@ -13,6 +13,13 @@ build:
   variables:
     DOCKER_DRIVER: overlay2
   script: 
+    - | 
+          
+          if ! docker info &>/dev/null; then
+            if [ -z "$DOCKER_HOST" -a "$KUBERNETES_PORT" ]; then
+              export DOCKER_HOST='tcp://localhost:2375'
+            fi
+          fi
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
     - docker build -t "$CI_PROJECT_PATH:$CI_COMMIT_REF_SLUG" .
     - docker push "$CI_PROJECT_PATH:$CI_COMMIT_REF_SLUG"
