@@ -29,6 +29,13 @@ test:
   services:
     - docker:dind
   script:
+    - | 
+          
+          if ! docker info &>/dev/null; then
+            if [ -z "$DOCKER_HOST" -a "$KUBERNETES_PORT" ]; then
+              export DOCKER_HOST='tcp://localhost:2375'
+            fi
+          fi
     - docker run "$CI_PROJECT_PATH:$CI_COMMIT_REF_SLUG" python -m unittest discover -s tests/
 
 # deploy:
