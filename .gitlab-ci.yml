@@ -31,24 +31,24 @@ deploy:
 
 
 .helper_functions: &helper_functions |
-function docker_hub_login() {
+  function docker_hub_login() {
   docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD"
-}
+  }
 
-function docker_host_connect() {
+  function docker_host_connect() {
   if ! docker info &>/dev/null; then
     if [ -z "$DOCKER_HOST" -a "$KUBERNETES_PORT" ]; then
       export DOCKER_HOST='tcp://localhost:2375'
     fi
   fi
-}
+  }
 
-function install_helm() {
+  function install_helm() {
   apk add -U openssl curl tar gzip bash ca-certificates git
   curl https://kubernetes-helm.storage.googleapis.com/helm-v2.7.2-linux-amd64.tar.gz | tar zx
   mv linux-amd64/helm /usr/bin/
-}
-docker_host_connect
+  }
+  docker_host_connect
 
 before_script:
   - *helper_functions
