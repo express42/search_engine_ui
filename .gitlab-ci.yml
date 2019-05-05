@@ -7,7 +7,6 @@ stages:
 
 build:
   stage: build
-  # image: docker:git
   services:
     - docker:dind
   script:
@@ -27,6 +26,7 @@ deploy:
   services:
     - docker:dind
   script:
+    - install_helm
     - helm ls
 
 
