@@ -1,0 +1,6 @@
+.venv
+venv
+tests
+README.md
+requirements-test.txt
+Dockerfile
